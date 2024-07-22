@@ -54,7 +54,46 @@
       );
     }
     function KmToMiles() {
-      return <h3>KM 2 M</h3>;
+      const [input, setInput] = React.useState();
+      const [switched, setSwitched] = React.useState(false);
+      const onChange = (event) => {
+        setInput(event.target.value);
+      };
+      const rebase = () => setInput(0);
+      const onSwitch = () => {
+        rebase();
+        setSwitched((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <label for="kilometer">Km</label>
+            <input
+              value={switched ? input * 1.60934 : input}
+              id="kilometer"
+              placeholder="Km"
+              type="number"
+              onChange={onChange}
+              disabled={switched === true}
+            />
+          </div>
+          <div>
+            <label for="miles">Miles</label>
+            <input
+              value={switched ? input : input * 0.621371}
+              id="miles"
+              placeholder="Miles"
+              type="number"
+              onChange={onChange}
+              disabled={switched === false}
+            />
+          </div>
+          <button onClick={rebase}>Reset</button>
+          <button onClick={onSwitch}>
+            {switched ? "Turn back" : "Switch"}
+          </button>
+        </div>
+      );
     }
     function App() {
       const [index, setIndex] = React.useState("xx");
